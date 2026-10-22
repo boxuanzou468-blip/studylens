@@ -7,6 +7,8 @@ from common import VIDEO_EXTENSIONS, SUBTITLE_EXTENSIONS, fingerprint, probe, ru
 
 
 def scan(root, recursive=True):
+    # macOS temp paths may alias /private/var through /var; compare canonical roots.
+    root = Path(root).expanduser().resolve()
     videos, errors = [], []
     paths = root.rglob('*') if recursive else root.iterdir()
     for path in sorted(paths, key=lambda p: p.as_posix().casefold()):

@@ -123,6 +123,19 @@ class SubtitleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             load_manifest(self.root)
 
+    def test_scan_resolves_noncanonical_root(self):
+        (self.root / '入口').mkdir()
+        (self.root / '课程.mp4').write_bytes(b'fake video')
+        (self.root / '课程.srt').write_text('字幕', encoding='utf-8')
+        alias = self.root / '入口' / '..'
+        with patch('scan.probe', return_value=(10, True)):
+            result = scan(alias)
+            canonical = scan(self.root.resolve())
+        self.assertEqual(result['errors'], [])
+        self.assertEqual(len(result['videos']), 1)
+        self.assertEqual(result['videos'], canonical['videos'])
+        self.assertEqual(result['videos'][0]['subtitle'], '课程.srt')
+
     def test_cli_help(self):
         for name in ['check_env.py', 'scan.py', 'transcribe.py', 'chunk.py']:
             with self.subTest(script=name):
