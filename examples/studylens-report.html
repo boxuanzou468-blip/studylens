@@ -1,0 +1,1701 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>StudyLens · 学习导航</title>
+    <style>
+      :root {
+        --bg: #f3f6f4;
+        --card: #fff;
+        --ink: #172a25;
+        --muted: #697a74;
+        --line: #dce5e0;
+        --green: #20765d;
+        --soft: #eaf3ee;
+        --must: #c64a48;
+        --must-bg: #fceceb;
+        --normal: #75857f;
+        --normal-bg: #edf1ef;
+        --speed: #a36a11;
+        --speed-bg: #fff2ca;
+        --skip: #b6c3bd;
+        --skip-bg: #f1f4f2;
+        --shadow: 0 5px 25px #193b2910;
+      }
+      html[data-theme="dark"] {
+        --bg: #111b18;
+        --card: #192722;
+        --ink: #e8f0ec;
+        --muted: #a0b1a9;
+        --line: #32463c;
+        --green: #81cfae;
+        --soft: #243c30;
+        --must: #ff9a94;
+        --must-bg: #4c2c2b;
+        --normal: #b5c8bd;
+        --normal-bg: #2f4137;
+        --speed: #f6ce74;
+        --speed-bg: #4c4022;
+        --skip: #789285;
+        --skip-bg: #2a382f;
+        --shadow: none;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: Inter, "Segoe UI", "Microsoft YaHei", sans-serif;
+        line-height: 1.6;
+        font-size: 14px;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+      }
+      button,
+      a,
+      input,
+      select,
+      summary {
+        -webkit-tap-highlight-color: transparent;
+      }
+      button,
+      select,
+      input {
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        background: var(--card);
+      }
+      button {
+        cursor: pointer;
+      }
+      button:hover {
+        border-color: var(--green);
+        background: var(--soft);
+      }
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      summary:focus-visible,
+      a:focus-visible {
+        outline: 3px solid var(--green);
+        outline-offset: 3px;
+      }
+      button:disabled {
+        cursor: default;
+        opacity: 0.5;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+      h2 {
+        font-size: 18px;
+        letter-spacing: -0.3px;
+      }
+      h3 {
+        font-size: 15px;
+      }
+      small,
+      .muted {
+        color: var(--muted);
+      }
+      [hidden] {
+        display: none !important;
+      }
+      a {
+        color: var(--green);
+      }
+      .wrap {
+        max-width: 1440px;
+        margin: auto;
+        padding: 0 36px;
+      }
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 23px 0;
+        border-bottom: 1px solid var(--line);
+        gap: 12px;
+      }
+      .brand {
+        font-size: 22px;
+        font-weight: 750;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        letter-spacing: -0.7px;
+      }
+      .brand-icon {
+        background: var(--ink);
+        color: var(--card);
+        border-radius: 11px;
+        width: 35px;
+        height: 35px;
+        display: grid;
+        place-items: center;
+        font-size: 23px;
+        font-family: Georgia, serif;
+      }
+      .top-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .top-actions button {
+        padding: 8px 13px;
+      }
+      .pill {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--green);
+        border: 1px solid var(--line);
+        padding: 4px 9px;
+        border-radius: 20px;
+      }
+      .intro {
+        display: flex;
+        justify-content: space-between;
+        gap: 28px;
+        align-items: end;
+        margin: 30px 0 24px;
+      }
+      .eyebrow {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        color: var(--green);
+        margin-bottom: 8px;
+      }
+      h1 {
+        font-size: 29px;
+        font-weight: 700;
+        letter-spacing: -1px;
+        line-height: 1.35;
+      }
+      .goals {
+        margin-top: 10px;
+        color: var(--muted);
+        max-width: 630px;
+      }
+      .stats {
+        display: flex;
+        gap: 30px;
+        flex-shrink: 0;
+      }
+      .stat {
+        border-left: 1px solid var(--line);
+        padding-left: 25px;
+      }
+      .stat-label {
+        font-size: 11px;
+        letter-spacing: 1px;
+        color: var(--muted);
+      }
+      .stat-value {
+        display: block;
+        font-size: 27px;
+        font-weight: 650;
+        letter-spacing: -1px;
+        margin-top: 2px;
+        white-space: nowrap;
+      }
+      .stat.saved .stat-value {
+        color: var(--green);
+      }
+      .learning {
+        margin-bottom: 26px;
+      }
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        gap: 10px;
+      }
+      .section-head small {
+        font-size: 12px;
+      }
+      .path {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .path-step {
+        padding: 13px 14px;
+        text-align: left;
+        display: grid;
+        grid-template-columns: 25px minmax(0, 1fr);
+        gap: 8px;
+        box-shadow: var(--shadow);
+      }
+      .step-number {
+        color: var(--green);
+        font-family: Georgia, serif;
+        font-size: 21px;
+      }
+      .step-title {
+        font-size: 13px;
+        font-weight: 650;
+        display: block;
+        line-height: 1.5;
+      }
+      .step-meta {
+        font-size: 11px;
+        display: block;
+        color: var(--muted);
+        margin: 4px 0;
+      }
+      .step-reason {
+        font-size: 11px;
+        color: var(--muted);
+        display: block;
+      }
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+        gap: 24px;
+        align-items: start;
+      }
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        min-width: 0;
+      }
+      .catalog-head {
+        padding: 19px 20px 15px;
+        border-bottom: 1px solid var(--line);
+      }
+      .search {
+        width: 100%;
+        padding: 10px 12px;
+        background: var(--bg);
+        margin: 13px 0 10px;
+      }
+      .filters {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 12px;
+      }
+      .filters select {
+        max-width: 55%;
+        padding: 7px 9px;
+      }
+      .check {
+        display: flex;
+        gap: 7px;
+        align-items: center;
+        cursor: pointer;
+      }
+      .check input {
+        accent-color: var(--green);
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+      }
+      .legend {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 13px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .legend-item:before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 2px;
+        background: var(--normal);
+        margin-right: 5px;
+      }
+      .legend-item.must:before {
+        background: var(--must);
+      }
+      .legend-item.speed:before {
+        background: var(--speed);
+      }
+      .legend-item.skip:before {
+        background: var(--skip);
+      }
+      .video-entry {
+        border-bottom: 1px solid var(--line);
+      }
+      .video-entry:last-child {
+        border: 0;
+      }
+      .video-entry summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 16px 20px;
+      }
+      .video-entry summary::-webkit-details-marker {
+        display: none;
+      }
+      .video-top {
+        display: flex;
+        gap: 12px;
+        align-items: start;
+      }
+      .video-number {
+        font-size: 11px;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        padding-top: 3px;
+        flex-shrink: 0;
+      }
+      .video-description {
+        min-width: 0;
+        flex: 1;
+      }
+      .video-title {
+        font-weight: 650;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+      }
+      .video-summary {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 4px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .chevron {
+        font-size: 12px;
+        color: var(--muted);
+        margin-left: auto;
+      }
+      .video-entry[open] .chevron {
+        transform: rotate(90deg);
+      }
+      .relevance {
+        display: flex;
+        gap: 9px;
+        align-items: center;
+        color: var(--muted);
+        font-size: 10px;
+        margin: 10px 0 8px;
+      }
+      .relevance-track {
+        width: 65px;
+        height: 3px;
+        background: var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      .relevance-track span {
+        display: block;
+        height: 100%;
+        background: var(--green);
+      }
+      .mini {
+        display: flex;
+        height: 6px;
+        border-radius: 5px;
+        overflow: hidden;
+        gap: 2px;
+        width: 100%;
+      }
+      .mini span {
+        min-width: 2px;
+        background: var(--normal);
+      }
+      .mini .must {
+        background: var(--must);
+      }
+      .mini .speed {
+        background: #d5a642;
+      }
+      .mini .skip {
+        background: var(--skip);
+      }
+      .segment-list {
+        padding: 0 12px 12px;
+      }
+      .segment {
+        padding: 12px 9px;
+        margin-top: 3px;
+        border-radius: 9px;
+        border: 1px solid transparent;
+      }
+      .segment.active {
+        background: var(--soft);
+        border-color: var(--line);
+      }
+      .segment-jump {
+        display: flex;
+        align-items: start;
+        gap: 9px;
+        text-align: left;
+        width: 100%;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+      .segment-jump:hover {
+        background: transparent;
+      }
+      .time {
+        color: var(--green);
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        min-width: 40px;
+        padding-top: 2px;
+      }
+      .segment-name {
+        font-size: 12px;
+        font-weight: 650;
+        flex: 1;
+      }
+      .badge {
+        font-size: 10px;
+        padding: 2px 7px;
+        border-radius: 5px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        line-height: 1.6;
+        background: var(--normal-bg);
+        color: var(--normal);
+      }
+      .badge.must {
+        background: var(--must-bg);
+        color: var(--must);
+      }
+      .badge.speed {
+        background: var(--speed-bg);
+        color: var(--speed);
+      }
+      .badge.skip {
+        background: var(--skip-bg);
+        color: var(--muted);
+      }
+      .segment-summary,
+      .segment-reason,
+      .keypoints {
+        margin: 6px 0 0 49px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .segment-reason {
+        color: var(--green);
+      }
+      .keypoints {
+        padding-left: 13px;
+        font-size: 10px;
+      }
+      .empty {
+        padding: 30px 20px;
+        color: var(--muted);
+        text-align: center;
+      }
+      .player-panel {
+        position: sticky;
+        top: 20px;
+      }
+      .player-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 20px;
+        align-items: center;
+      }
+      .player-heading h2 {
+        font-size: 15px;
+        overflow-wrap: anywhere;
+      }
+      .player-heading small {
+        font-size: 11px;
+        white-space: nowrap;
+      }
+      .screen {
+        position: relative;
+        background: #101b17;
+        aspect-ratio: 16/9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+      .play-error {
+        position: absolute;
+        inset: 0;
+        background: #17251f;
+        color: #f0f6f2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 25px;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .error-symbol {
+        font-family: Georgia, serif;
+        font-size: 35px;
+        color: #a4bcae;
+        border: 1px solid #476153;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        line-height: 60px;
+        margin-bottom: 5px;
+      }
+      .play-error h3 {
+        font-size: 16px;
+      }
+      .play-error p {
+        max-width: 380px;
+        font-size: 12px;
+        color: #b8cbc0;
+      }
+      .play-error code {
+        font-size: 11px;
+        color: #c7d9ce;
+        overflow-wrap: anywhere;
+        max-width: 100%;
+      }
+      .transport,
+      .transport-left {
+        flex-wrap: wrap;
+      }
+      .player-panel:fullscreen {
+        overflow: auto;
+        background: var(--bg);
+        padding: 20px;
+      }
+      .player-panel:fullscreen .screen {
+        max-height: 70vh;
+      }
+      .player-controls {
+        padding: 17px 20px;
+        border-bottom: 1px solid var(--line);
+      }
+      .seek {
+        width: 100%;
+        accent-color: var(--green);
+        cursor: pointer;
+        height: 6px;
+        padding: 0;
+        margin: 0 0 12px;
+      }
+      .transport {
+        display: flex;
+        gap: 12px;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        flex-wrap: wrap;
+      }
+      .transport-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .transport button {
+        padding: 5px 13px;
+      }
+      .transport select {
+        padding: 5px 6px;
+      }
+      .position {
+        font-size: 11px;
+        font-variant-numeric: tabular-nums;
+        color: var(--muted);
+      }
+      .smart-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 20px;
+        font-size: 12px;
+      }
+      .smart-row small {
+        font-size: 10px;
+        display: block;
+        margin-left: 23px;
+        margin-top: 2px;
+      }
+      .rate-status {
+        color: var(--green);
+        font-size: 11px;
+      }
+      .current {
+        padding: 17px 20px 18px;
+        border-top: 1px solid var(--line);
+      }
+      .current-top {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-bottom: 9px;
+      }
+      .current h3 {
+        font-size: 14px;
+      }
+      .current p {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 7px;
+      }
+      .current ul {
+        padding-left: 18px;
+        font-size: 11px;
+        color: var(--muted);
+        margin: 10px 0;
+      }
+      .share {
+        padding: 13px 20px;
+        border-top: 1px solid var(--line);
+        background: var(--bg);
+      }
+      .share-line {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .share input {
+        flex: 1;
+        min-width: 0;
+        padding: 7px 9px;
+        font-size: 10px;
+        background: var(--card);
+      }
+      .share button {
+        padding: 7px 10px;
+        font-size: 11px;
+        flex-shrink: 0;
+      }
+      .share small {
+        display: block;
+        font-size: 10px;
+        margin-top: 6px;
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 12px 16px;
+        background: var(--ink);
+        color: var(--card);
+        border-radius: 12px;
+        box-shadow: 0 8px 30px #0004;
+        max-width: calc(100% - 24px);
+        font-size: 12px;
+      }
+      .toast span {
+        overflow-wrap: anywhere;
+      }
+      .toast button {
+        white-space: nowrap;
+        font-size: 11px;
+        padding: 5px 9px;
+      }
+      .topic-index {
+        padding: 16px 20px;
+        border-top: 1px solid var(--line);
+      }
+      .topic-index h3 {
+        font-size: 12px;
+        margin-bottom: 9px;
+      }
+      .topic-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+      .topic-links button {
+        font-size: 10px;
+        padding: 4px 8px;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 10px;
+        padding: 23px 0 30px;
+        gap: 10px;
+      }
+      .link-status {
+        font-size: 12px;
+        color: var(--must);
+        margin-bottom: 12px;
+        overflow-wrap: anywhere;
+      }
+      @media (min-width: 1500px) {
+        .wrap {
+          max-width: 1500px;
+        }
+      }
+      @media (max-width: 1050px) {
+        .wrap {
+          padding: 0 22px;
+        }
+        .stats {
+          gap: 17px;
+        }
+        .stat {
+          padding-left: 17px;
+        }
+        .stat-value {
+          font-size: 22px;
+        }
+        h1 {
+          font-size: 25px;
+        }
+        .workspace {
+          gap: 16px;
+        }
+        .path-step {
+          padding: 11px;
+        }
+        .step-reason {
+          display: none;
+        }
+        .player-heading {
+          padding: 15px;
+        }
+        .player-controls,
+        .smart-row,
+        .current,
+        .share {
+          padding-left: 15px;
+          padding-right: 15px;
+        }
+      }
+      @media (max-width: 720px) {
+        .wrap {
+          padding: 0 16px;
+        }
+        .topbar {
+          padding: 16px 0;
+        }
+        .brand {
+          font-size: 20px;
+        }
+        .pill {
+          display: none;
+        }
+        .intro {
+          display: block;
+          margin: 23px 0;
+        }
+        .intro h1 {
+          font-size: 25px;
+        }
+        .stats {
+          margin-top: 20px;
+          justify-content: space-between;
+          gap: 10px;
+        }
+        .stat {
+          padding-left: 12px;
+          flex: 1;
+        }
+        .stat-value {
+          font-size: 23px;
+        }
+        .path {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+        }
+        .step-title {
+          font-size: 12px;
+        }
+        .step-meta {
+          font-size: 10px;
+        }
+        .workspace {
+          display: flex;
+          flex-direction: column;
+          gap: 17px;
+        }
+        .player-panel {
+          position: static;
+          order: -1;
+          width: 100%;
+        }
+        .catalog-panel {
+          width: 100%;
+        }
+        .learning {
+          margin-bottom: 20px;
+        }
+        .section-head h2 {
+          font-size: 16px;
+        }
+        .section-head small {
+          font-size: 10px;
+        }
+        .transport {
+          gap: 8px;
+        }
+        .position {
+          font-size: 10px;
+        }
+        .footer {
+          flex-direction: column;
+          gap: 3px;
+        }
+        .player-heading h2 {
+          font-size: 13px;
+        }
+        .smart-row {
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }
+        .top-actions {
+          gap: 6px;
+        }
+        .top-actions button {
+          font-size: 12px;
+          padding: 7px 10px;
+        }
+        .current p {
+          font-size: 11px;
+        }
+        .screen {
+          min-height: 190px;
+        }
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        button {
+          transition:
+            background 0.14s,
+            border-color 0.14s;
+        }
+      }
+      :root {
+        color-scheme: light;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+      }
+      .toast button {
+        color: var(--ink);
+        background: var(--card);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="topbar">
+        <div class="brand">
+          <span class="brand-icon" aria-hidden="true">S</span>StudyLens
+        </div>
+        <div class="top-actions">
+          <span class="pill">本地学习笔记</span
+          ><button id="theme-toggle" type="button" aria-pressed="false">
+            切换深色
+          </button>
+        </div>
+      </header>
+      <section class="intro">
+        <div>
+          <div class="eyebrow">你的专属学习导航</div>
+          <h1>少一点盲看，多一点收获。</h1>
+          <p class="goals" id="goals"></p>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">课程总时长</span
+            ><strong class="stat-value" id="total-stat"></strong>
+          </div>
+          <div class="stat">
+            <span class="stat-label">建议观看</span
+            ><strong class="stat-value" id="recommended-stat"></strong>
+          </div>
+          <div class="stat saved">
+            <span class="stat-label">省下时间</span
+            ><strong class="stat-value" id="saved-stat"></strong>
+          </div>
+        </div>
+      </section>
+      <section class="learning">
+        <div class="section-head">
+          <h2>从这里开始</h2>
+          <small>按照你的目标，安排下一步</small>
+        </div>
+        <div class="path" id="learning-path"></div>
+      </section>
+      <p class="link-status" id="link-status" role="status" hidden></p>
+      <main class="workspace">
+        <section class="panel catalog-panel" aria-label="课程目录">
+          <div class="catalog-head">
+            <div class="section-head">
+              <h2>课程目录</h2>
+              <small id="catalog-count"></small>
+            </div>
+            <label for="search" class="muted" style="font-size: 11px"
+              >查找想学的内容</label
+            ><input
+              class="search"
+              type="search"
+              id="search"
+              placeholder="搜索标题、摘要或知识点…"
+            />
+            <div class="filters">
+              <label class="check"
+                ><input id="must-only" type="checkbox" />只看重点</label
+              ><select id="topic-filter" aria-label="按主题筛选">
+                <option value="">全部主题</option>
+              </select>
+            </div>
+            <label class="check" for="catalog-order"
+              >排序
+              <select id="catalog-order" aria-label="目录排序">
+                <option value="relevance">相关度优先</option>
+                <option value="original">原始顺序</option>
+              </select></label
+            >
+            <div class="legend">
+              <span class="legend-item must">重点</span
+              ><span class="legend-item">一般</span
+              ><span class="legend-item speed">加速</span
+              ><span class="legend-item skip">跳过</span>
+            </div>
+          </div>
+          <div id="catalog"></div>
+          <div class="topic-index">
+            <h3>主题索引</h3>
+            <div id="topic-links" class="topic-links"></div>
+          </div>
+        </section>
+        <section
+          class="panel player-panel"
+          aria-label="课程播放器"
+          id="player-panel"
+        >
+          <div class="player-heading">
+            <h2 id="playing-title">选择一段内容</h2>
+            <small id="video-duration"></small>
+          </div>
+          <div class="screen">
+            <video id="player" preload="metadata" playsinline></video>
+            <div class="play-error" id="play-error" role="status" hidden>
+              <div class="error-symbol" aria-hidden="true">!</div>
+              <h3>浏览器无法播放此格式</h3>
+              <p>
+                文件也可能暂时无法读取。请用系统播放器打开下方文件，对照目录时间戳观看。
+              </p>
+              <code id="error-path"></code>
+            </div>
+          </div>
+          <div class="player-controls">
+            <input
+              class="seek"
+              id="seek-bar"
+              type="range"
+              min="0"
+              max="1"
+              step="0.1"
+              value="0"
+              aria-label="播放位置"
+            />
+            <div class="transport">
+              <div class="transport-left">
+                <button type="button" id="play-toggle">播放</button
+                ><button type="button" id="mute-toggle" aria-pressed="false">
+                  静音
+                </button>
+                <input
+                  id="volume"
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value="1"
+                  aria-label="音量"
+                  style="width: 70px"
+                />
+                <button type="button" id="fullscreen-toggle">全屏</button>
+                <span id="control-status" role="status"></span>
+                <span class="position" id="position">00:00 / 00:00</span>
+              </div>
+              <label
+                >基础速度
+                <select id="base-rate" aria-label="基础播放速度">
+                  <option value="1">1×</option>
+                  <option value="1.25">1.25×</option>
+                  <option value="1.5">1.5×</option>
+                  <option value="1.75">1.75×</option>
+                  <option value="2">2×</option>
+                  <option value="2.5">2.5×</option>
+                </select></label
+              >
+            </div>
+          </div>
+          <div class="smart-row">
+            <div>
+              <label class="check"
+                ><input id="smart-mode" type="checkbox" />智能播放</label
+              ><small>自动加速与跳过；手动选中的跳过段仍会保留</small>
+            </div>
+            <span class="rate-status" id="rate-status">1×</span>
+          </div>
+          <div class="current">
+            <div class="current-top">
+              <span class="badge" id="current-badge">一般</span>
+              <h3 id="current-title">准备开始学习</h3>
+            </div>
+            <p id="current-summary"></p>
+            <ul id="current-keypoints"></ul>
+            <p id="current-reason"></p>
+          </div>
+          <div class="share">
+            <div class="share-line">
+              <input
+                id="share-link"
+                aria-label="当前片段链接"
+                readonly
+              /><button type="button" id="share-button">复制此刻链接</button>
+            </div>
+            <small id="share-status" role="status"
+              >本地链接需连同报告与影片使用。</small
+            >
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <span>StudyLens / 把课程变成可以行动的知识。</span
+        ><span>离线可用 · 内容由你的 AI 整理 · 原始影片保存在本地</span>
+      </footer>
+    </div>
+    <div class="toast" id="skip-toast" role="status" hidden>
+      <span id="skip-message"></span
+      ><button id="skip-back" type="button">回去看</button>
+    </div>
+    <script id="studylens-data" type="application/json">
+      {"profile": {"video_folder": ".", "goals": ["制定可执行的学习计划", "用主动回忆检查掌握程度"], "level": "beginner", "time_budget_min": 10, "language": "zh-CN"}, "library": {"learning_path": [{"video_id": "1826e5de3ff6b05b", "segment_index": 0, "reason": "先明确要达成的成果。"}, {"video_id": "1826e5de3ff6b05b", "segment_index": 1, "reason": "再安排每日执行时间。"}, {"video_id": "df3a612a35031034", "segment_index": 0, "reason": "学习主动回忆，检查知识是否掌握。"}, {"video_id": "df3a612a35031034", "segment_index": 1, "reason": "最后把练习结果用于调整计划。"}], "topic_index": {"学习目标": [{"video_id": "1826e5de3ff6b05b", "segment_index": 0}], "时间安排": [{"video_id": "1826e5de3ff6b05b", "segment_index": 1}], "主动回忆": [{"video_id": "df3a612a35031034", "segment_index": 0}], "复盘": [{"video_id": "1826e5de3ff6b05b", "segment_index": 2}, {"video_id": "df3a612a35031034", "segment_index": 1}]}, "stats": {"total_sec": 600, "recommended_sec": 390, "saved_sec": 210}}, "videos": [{"id": "1826e5de3ff6b05b", "path": "学习计划入门.mp4", "filename": "学习计划入门.mp4", "duration_sec": 240, "video_id": "1826e5de3ff6b05b", "title": "把学习目标拆成每日任务", "summary": "介绍目标拆解、日程安排和每周复盘。配合例子形成可以执行的学习计划。", "topics": ["学习目标", "时间安排", "复盘"], "relevance": 95, "segments": [{"start": 0, "end": 60, "title": "写出可检验的学习目标", "summary": "把模糊的愿望改写成可以检查的成果。示例以独立完成一张统计图作为阶段目标。", "keypoints": ["成果要能被检验", "将大目标分解成小任务"], "label": "must", "reason": "直接对应制定可执行学习计划的目标。"}, {"start": 60, "end": 120, "title": "为每天安排固定学习时段", "summary": "解释固定时段如何降低开始学习的阻力。用每日二十分钟的例子说明任务与可用时间的匹配。", "keypoints": ["任务量要匹配可用时间", "为学习预留固定时段"], "label": "normal", "reason": "提供目标落地所需的时间安排背景。"}, {"start": 120, "end": 180, "title": "重复演示任务清单", "summary": "再次演示前面已经出现的任务拆解方式。操作节奏较慢，观看时保留关键步骤即可。", "keypoints": ["按步骤记录任务", "重复示例用于巩固"], "label": "speed", "speed": 2, "reason": "与学习目标相关，但主要重复前文，适合两倍速。"}, {"start": 180, "end": 240, "title": "课程推广与片尾", "summary": "介绍后续付费课程并进行片尾致谢。没有补充目标拆解或学习安排的新方法。", "keypoints": ["推广信息", "片尾致谢"], "label": "skip", "reason": "推广和致谢不对应本次学习目标。"}]}, {"id": "df3a612a35031034", "path": "复习方法进阶.mp4", "filename": "复习方法进阶.mp4", "duration_sec": 360, "video_id": "df3a612a35031034", "title": "用主动回忆和每周复盘改进计划", "summary": "示范不看资料解释知识点，再用小练习核对掌握情况。最后根据复盘记录调整后续任务。", "topics": ["主动回忆", "练习", "复盘"], "relevance": 98, "segments": [{"start": 0, "end": 90, "title": "闭卷解释一个概念", "summary": "讲师示范在不看资料的情况下解释概念。解释后再对照原材料，找出遗漏或理解错误。", "keypoints": ["先回忆再核对", "记录无法解释的部分"], "label": "must", "reason": "直接示范通过主动回忆检查掌握程度的方法。"}, {"start": 90, "end": 180, "title": "根据练习结果调整学习计划", "summary": "将练习错误分类并记录到复盘表。依据错误类型决定重看概念、增加练习或调整进度。", "keypoints": ["区分理解错误与操作错误", "用练习结果调整任务"], "label": "normal", "reason": "连接主动回忆与后续学习安排，需要正常理解。"}, {"start": 180, "end": 270, "title": "再做一遍相同的复盘流程", "summary": "用第二道同类练习重复前面的核对方法。流程已经介绍，适合加速巩固。", "keypoints": ["重复练习核对步骤", "将问题加入下周任务"], "label": "speed", "speed": 1.5, "reason": "内容相关但步骤重复，建议一点五倍速。"}, {"start": 270, "end": 360, "title": "课后闲聊", "summary": "讲师分享与学习方法无关的个人行程。没有新增主动回忆或复盘知识点。", "keypoints": ["个人行程闲聊"], "label": "skip", "reason": "与两个学习目标均无直接关系。"}]}]}
+    </script>
+    <script>
+      "use strict";
+      (() => {
+        const DATA = JSON.parse(
+          document.getElementById("studylens-data").textContent,
+        );
+        const $ = (id) => document.getElementById(id);
+        const video = $("player");
+        const labels = {
+          must: "重点",
+          normal: "一般",
+          speed: "加速",
+          skip: "跳过",
+        };
+        const videos = new Map(DATA.videos.map((v) => [v.id, v]));
+        const opened = new Set();
+        let current = null,
+          segmentIndex = -1,
+          baseRate = 1,
+          ownRateEvents = 0;
+        let internalSeek = null,
+          pendingSeek = null,
+          manualSkip = null,
+          wantsPlay = false;
+        let skipTimer = null,
+          skipped = null;
+        function el(tag, className = "", text = "") {
+          const node = document.createElement(tag);
+          if (className) node.className = className;
+          node.textContent = text;
+          return node;
+        }
+        function storeGet(key, fallback) {
+          try {
+            return localStorage.getItem("studylens." + key) ?? fallback;
+          } catch {
+            return fallback;
+          }
+        }
+        function storeSet(key, value) {
+          try {
+            localStorage.setItem("studylens." + key, value);
+          } catch {
+            /* optional persistence */
+          }
+        }
+        function time(n) {
+          n = Math.max(0, Math.floor(n || 0));
+          return n >= 3600
+            ? `${Math.floor(n / 3600)}:${String(Math.floor(n / 60) % 60).padStart(2, "0")}:${String(n % 60).padStart(2, "0")}`
+            : `${String(Math.floor(n / 60)).padStart(2, "0")}:${String(n % 60).padStart(2, "0")}`;
+        }
+        function duration(n) {
+          const h = Math.floor(n / 3600),
+            m = Math.floor((n % 3600) / 60),
+            s = Math.round(n % 60);
+          return h
+            ? `${h}时 ${m}分`
+            : m
+              ? `${m}分${s ? " " + s + "秒" : ""}`
+              : `${s}秒`;
+        }
+        function mediaURL(path) {
+          return path
+            .split("/")
+            .map((part) => encodeURIComponent(part))
+            .join("/");
+        }
+        function badge(label) {
+          return el("span", "badge " + label, labels[label]);
+        }
+        function theme(dark) {
+          document.documentElement.dataset.theme = dark ? "dark" : "light";
+          $("theme-toggle").textContent = dark ? "切换浅色" : "切换深色";
+          $("theme-toggle").setAttribute("aria-pressed", String(dark));
+        }
+        theme(
+          storeGet(
+            "theme",
+            matchMedia("(prefers-color-scheme:dark)").matches
+              ? "dark"
+              : "light",
+          ) === "dark",
+        );
+        $("theme-toggle").addEventListener("click", () => {
+          const dark = document.documentElement.dataset.theme !== "dark";
+          theme(dark);
+          storeSet("theme", dark ? "dark" : "light");
+        });
+        $("smart-mode").checked = storeGet("smart", "false") === "true";
+        $("goals").textContent = DATA.profile.goals.join(" / ");
+        for (const [id, key] of [
+          ["total-stat", "total_sec"],
+          ["recommended-stat", "recommended_sec"],
+          ["saved-stat", "saved_sec"],
+        ])
+          $(id).textContent = duration(DATA.library.stats[key]);
+        for (const [i, ref] of DATA.library.learning_path.entries()) {
+          const v = videos.get(ref.video_id),
+            s = v.segments[ref.segment_index],
+            button = el("button", "path-step");
+          button.type = "button";
+          button.append(
+            el("span", "step-number", String(i + 1).padStart(2, "0")),
+          );
+          const content = el("span");
+          content.append(
+            el("span", "step-title", s.title),
+            el("span", "step-meta", `${v.title} · ${time(s.start)}`),
+            el("span", "step-reason", ref.reason),
+          );
+          button.append(content);
+          button.addEventListener("click", () => navigate(v.id, s.start, true));
+          $("learning-path").append(button);
+        }
+        if (!DATA.library.learning_path.length)
+          $("learning-path").append(
+            el("p", "muted", "暂无可推荐的语音片段；可在目录中查看全部记录。"),
+          );
+        for (const topic of Object.keys(DATA.library.topic_index)) {
+          const option = el("option", "", topic);
+          option.value = topic;
+          $("topic-filter").append(option);
+          const button = el("button", "", topic);
+          button.type = "button";
+          button.addEventListener("click", () => {
+            $("topic-filter").value = topic;
+            renderCatalog();
+          });
+          $("topic-links").append(button);
+        }
+        function renderCatalog() {
+          const query = $("search").value.trim().toLocaleLowerCase(),
+            onlyMust = $("must-only").checked,
+            topic = $("topic-filter").value;
+          const allowed = topic
+            ? new Set(
+                DATA.library.topic_index[topic].map(
+                  (r) => r.video_id + ":" + r.segment_index,
+                ),
+              )
+            : null;
+          const container = $("catalog");
+          container.replaceChildren();
+          let count = 0;
+          const ordered = DATA.videos.map((v, index) => ({ v, index }));
+          if ($("catalog-order").value === "relevance")
+            ordered.sort(
+              (a, b) => b.v.relevance - a.v.relevance || a.index - b.index,
+            );
+          ordered.forEach(({ v }, vi) => {
+            const videoMatch = (
+              v.title +
+              " " +
+              v.summary +
+              " " +
+              v.topics.join(" ")
+            )
+              .toLocaleLowerCase()
+              .includes(query);
+            const matches = v.segments
+              .map((s, i) => ({ s, i }))
+              .filter(
+                ({ s, i }) =>
+                  (!onlyMust || s.label === "must") &&
+                  (!allowed || allowed.has(v.id + ":" + i)) &&
+                  (!query ||
+                    videoMatch ||
+                    (
+                      s.title +
+                      " " +
+                      s.summary +
+                      " " +
+                      s.reason +
+                      " " +
+                      s.keypoints.join(" ")
+                    )
+                      .toLocaleLowerCase()
+                      .includes(query)),
+              );
+            if (!matches.length) return;
+            count++;
+            const details = el("details", "video-entry");
+            details.dataset.videoId = v.id;
+            details.open = opened.has(v.id);
+            details.addEventListener("toggle", () => {
+              if (details.open) opened.add(v.id);
+              else opened.delete(v.id);
+            });
+            const summary = el("summary"),
+              top = el("div", "video-top"),
+              desc = el("div", "video-description");
+            desc.append(
+              el("div", "video-title", v.title),
+              el("p", "video-summary", v.summary),
+            );
+            top.append(
+              el("span", "video-number", String(vi + 1).padStart(2, "0")),
+              desc,
+              el("span", "chevron", "›"),
+            );
+            summary.append(top);
+            const relevance = el("div", "relevance"),
+              track = el("span", "relevance-track"),
+              fill = el("span");
+            fill.style.width = v.relevance + "%";
+            track.append(fill);
+            relevance.append(
+              el("span", "", `相关度 ${v.relevance}%`),
+              track,
+              el("span", "", duration(v.duration_sec)),
+            );
+            summary.append(relevance);
+            const mini = el("div", "mini");
+            mini.setAttribute("role", "img");
+            mini.setAttribute(
+              "aria-label",
+              "片段标签时间轴；红色重点、灰色一般、黄色加速、浅色跳过",
+            );
+            v.segments.forEach((s) => {
+              const block = el("span", s.label);
+              block.style.flexGrow = String(s.end - s.start);
+              block.title = `${time(s.start)}–${time(s.end)} ${labels[s.label]} · ${s.title}`;
+              mini.append(block);
+            });
+            summary.append(mini);
+            details.append(summary);
+            const list = el("div", "segment-list");
+            matches.forEach(({ s, i }) => {
+              const card = el("article", "segment");
+              card.dataset.videoId = v.id;
+              card.dataset.segmentIndex = String(i);
+              const jump = el("button", "segment-jump");
+              jump.type = "button";
+              jump.dataset.videoId = v.id;
+              jump.dataset.segmentIndex = String(i);
+              jump.setAttribute(
+                "aria-label",
+                `${time(s.start)} ${s.title} ${labels[s.label]}`,
+              );
+              jump.append(
+                el("span", "time", time(s.start)),
+                el("span", "segment-name", s.title),
+                badge(s.label),
+              );
+              jump.addEventListener("click", () =>
+                navigate(v.id, s.start, true),
+              );
+              const points = el("ul", "keypoints");
+              s.keypoints.forEach((point) =>
+                points.append(el("li", "", point)),
+              );
+              card.append(
+                jump,
+                el("p", "segment-summary", s.summary),
+                el("p", "segment-reason", "为什么看：" + s.reason),
+                points,
+              );
+              list.append(card);
+            });
+            details.append(list);
+            container.append(details);
+          });
+          if (!count)
+            container.append(
+              el("p", "empty", "没有匹配的片段，试试其他关键词或取消筛选。"),
+            );
+          $("catalog-count").textContent =
+            `${count} / ${DATA.videos.length} 支影片`;
+          highlight();
+        }
+        for (const id of [
+          "search",
+          "must-only",
+          "topic-filter",
+          "catalog-order",
+        ])
+          $(id).addEventListener(
+            id === "search" ? "input" : "change",
+            renderCatalog,
+          );
+        function findSegment(t) {
+          return current
+            ? current.segments.findIndex(
+                (s, i) =>
+                  t >= s.start &&
+                  (t < s.end ||
+                    (i === current.segments.length - 1 && t <= s.end)),
+              )
+            : -1;
+        }
+        function highlight() {
+          document.querySelectorAll(".segment").forEach((node) => {
+            const active =
+              !!current &&
+              node.dataset.videoId === current.id &&
+              Number(node.dataset.segmentIndex) === segmentIndex;
+            node.classList.toggle("active", active);
+            const button = node.querySelector("button");
+            if (active) button.setAttribute("aria-current", "true");
+            else button.removeAttribute("aria-current");
+          });
+        }
+        function setRate(value) {
+          if (Math.abs(video.playbackRate - value) > 0.001) {
+            ownRateEvents++;
+            video.playbackRate = value;
+          }
+          $("rate-status").textContent = `${value}×`;
+        }
+        function syncBaseSelector() {
+          const select = $("base-rate");
+          if (
+            !Array.from(select.options).some(
+              (o) => Number(o.value) === baseRate,
+            )
+          ) {
+            const option = el("option", "", baseRate + "×");
+            option.value = String(baseRate);
+            select.append(option);
+          }
+          select.value = String(baseRate);
+        }
+        function seekTo(t, manual = true) {
+          if (!current) return;
+          const limit = Number.isFinite(video.duration)
+            ? Math.min(current.duration_sec, video.duration)
+            : current.duration_sec;
+          const target = Math.min(Math.max(Number(t) || 0, 0), limit);
+          const i = findSegment(target);
+          if (manual)
+            manualSkip =
+              i >= 0 && current.segments[i].label === "skip" ? i : null;
+          if (video.readyState === 0) {
+            pendingSeek = { time: target, manual };
+            return;
+          }
+          internalSeek = { time: target, manual };
+          video.currentTime = target;
+          updateView();
+        }
+        function smart() {
+          if (!current || pendingSeek || video.seeking) return;
+          const i = findSegment(video.currentTime),
+            s = current.segments[i];
+          if (manualSkip !== null && manualSkip !== i) manualSkip = null;
+          const enabled = $("smart-mode").checked;
+          setRate(enabled && s && s.label === "speed" ? s.speed : baseRate);
+          if (
+            enabled &&
+            s &&
+            s.label === "skip" &&
+            manualSkip !== i &&
+            !video.paused &&
+            !video.ended
+          ) {
+            skipped = { videoId: current.id, start: s.start };
+            $("skip-message").textContent = "已跳过：〈" + s.title + "〉";
+            $("skip-toast").hidden = false;
+            clearTimeout(skipTimer);
+            skipTimer = setTimeout(() => {
+              $("skip-toast").hidden = true;
+            }, 3000);
+            seekTo(s.end, false);
+          }
+        }
+        function updateView() {
+          if (!current) return;
+          const t = pendingSeek
+            ? Number(pendingSeek.time)
+            : Number.isFinite(video.currentTime)
+              ? video.currentTime
+              : 0;
+          $("position").textContent =
+            `${time(t)} / ${time(current.duration_sec)}`;
+          $("seek-bar").value = String(t);
+          $("play-toggle").textContent = video.paused ? "播放" : "暂停";
+          const next = findSegment(t);
+          if (segmentIndex !== next) {
+            segmentIndex = next;
+            const s = current.segments[next];
+            $("current-title").textContent = s ? s.title : "当前时间没有标注";
+            $("current-summary").textContent = s ? s.summary : "";
+            $("current-badge").textContent = s ? labels[s.label] : "一般";
+            $("current-badge").className = "badge " + (s ? s.label : "normal");
+            $("current-reason").textContent = s ? "观看建议：" + s.reason : "";
+            $("current-keypoints").replaceChildren();
+            if (s)
+              s.keypoints.forEach((p) =>
+                $("current-keypoints").append(el("li", "", p)),
+              );
+            highlight();
+          }
+          $("share-link").value = shareURL(t);
+        }
+        function shareURL(t) {
+          if (!current) return "";
+          return (
+            location.href.split("#")[0] +
+            "#" +
+            new URLSearchParams({
+              v: current.id,
+              t: String(Math.round(t * 1000) / 1000),
+            }).toString()
+          );
+        }
+        function navigate(id, t = 0, play = false) {
+          const next = videos.get(id);
+          if (!next) return;
+          if (play && matchMedia("(max-width:1050px)").matches) {
+            requestAnimationFrame(() =>
+              $("player-panel").scrollIntoView({
+                behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
+                  ? "auto"
+                  : "smooth",
+                block: "start",
+              }),
+            );
+          }
+          $("link-status").hidden = true;
+          opened.add(id);
+          wantsPlay = play;
+          if (current && current.id === id) {
+            seekTo(t, true);
+            if (play) video.play().catch(() => {});
+            renderCatalog();
+            return;
+          }
+          video.pause();
+          current = next;
+          segmentIndex = -2;
+          manualSkip = null;
+          internalSeek = null;
+          pendingSeek = { time: t, manual: true };
+          setRate(baseRate);
+          $("playing-title").textContent = current.title;
+          $("video-duration").textContent = duration(current.duration_sec);
+          $("seek-bar").max = String(current.duration_sec);
+          $("play-error").hidden = true;
+          $("error-path").textContent = current.path;
+          video.src = mediaURL(current.path);
+          video.load();
+          renderCatalog();
+          updateView();
+        }
+        video.addEventListener("loadedmetadata", () => {
+          const target = pendingSeek;
+          pendingSeek = null;
+          setRate(baseRate);
+          if (target) seekTo(target.time, target.manual);
+          if (wantsPlay) video.play().catch(() => {});
+          updateView();
+        });
+        video.addEventListener("seeking", () => {
+          if (!current) return;
+          if (
+            !internalSeek ||
+            Math.abs(video.currentTime - internalSeek.time) > 0.2
+          ) {
+            const i = findSegment(video.currentTime);
+            manualSkip =
+              i >= 0 && current.segments[i].label === "skip" ? i : null;
+          }
+          updateView();
+        });
+        video.addEventListener("seeked", () => {
+          internalSeek = null;
+          updateView();
+          smart();
+        });
+        video.addEventListener("timeupdate", () => {
+          updateView();
+          smart();
+        });
+        video.addEventListener("play", () => {
+          updateView();
+          smart();
+        });
+        video.addEventListener("pause", updateView);
+        video.addEventListener("ended", () => {
+          setRate(baseRate);
+          updateView();
+        });
+        video.addEventListener("error", () => {
+          $("play-error").hidden = false;
+        });
+        video.addEventListener("ratechange", () => {
+          if (ownRateEvents > 0) {
+            ownRateEvents--;
+            return;
+          }
+          baseRate = video.playbackRate;
+          syncBaseSelector();
+          smart();
+        });
+        $("base-rate").addEventListener("change", () => {
+          baseRate = Number($("base-rate").value);
+          smart();
+          if (!$("smart-mode").checked) setRate(baseRate);
+        });
+        $("smart-mode").addEventListener("change", () => {
+          storeSet("smart", String($("smart-mode").checked));
+          smart();
+        });
+        $("seek-bar").addEventListener("input", () =>
+          seekTo(Number($("seek-bar").value), true),
+        );
+        $("play-toggle").addEventListener("click", () => {
+          if (video.paused)
+            video.play().catch(() => {
+              $("play-error").hidden = false;
+            });
+          else video.pause();
+        });
+        function syncVolume() {
+          $("volume").value = String(video.volume);
+          $("mute-toggle").textContent = video.muted ? "取消静音" : "静音";
+          $("mute-toggle").setAttribute("aria-pressed", String(video.muted));
+        }
+        video.addEventListener("volumechange", syncVolume);
+        $("volume").addEventListener("input", () => {
+          video.volume = Number($("volume").value);
+          video.muted = video.volume === 0;
+          syncVolume();
+        });
+        $("mute-toggle").addEventListener("click", () => {
+          video.muted = !video.muted;
+          syncVolume();
+        });
+        $("fullscreen-toggle").addEventListener("click", async () => {
+          try {
+            if (document.fullscreenElement) await document.exitFullscreen();
+            else if ($("player-panel").requestFullscreen)
+              await $("player-panel").requestFullscreen();
+            else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+            else throw new Error("unsupported");
+            $("control-status").textContent = "";
+          } catch {
+            $("control-status").textContent =
+              "当前浏览器不支持全屏，可使用浏览器全屏功能。";
+          }
+        });
+        document.addEventListener("fullscreenchange", () => {
+          $("fullscreen-toggle").textContent = document.fullscreenElement
+            ? "退出全屏"
+            : "全屏";
+        });
+        $("skip-back").addEventListener("click", () => {
+          if (skipped) {
+            $("skip-toast").hidden = true;
+            clearTimeout(skipTimer);
+            navigate(skipped.videoId, skipped.start, true);
+          }
+        });
+        $("share-button").addEventListener("click", async () => {
+          const link = shareURL(
+            pendingSeek ? pendingSeek.time : video.currentTime,
+          );
+          $("share-link").value = link;
+          try {
+            history.replaceState(null, "", link);
+          } catch {
+            /* file browsers may restrict history */
+          }
+          try {
+            await navigator.clipboard.writeText(link);
+            $("share-status").textContent = "链接已复制，包含当前影片和时间。";
+          } catch {
+            $("share-link").focus();
+            $("share-link").select();
+            $("share-status").textContent = "请复制上方已选中的链接。";
+          }
+        });
+        function fromHash() {
+          const params = new URLSearchParams(location.hash.slice(1));
+          if (!params.has("v")) return false;
+          const id = params.get("v"),
+            t = Number(params.get("t") || 0),
+            v = videos.get(id);
+          if (!v || !Number.isFinite(t) || t < 0 || t > v.duration_sec) {
+            $("link-status").textContent =
+              "链接中的影片或时间无效，请从目录重新选择。";
+            $("link-status").hidden = false;
+            return false;
+          }
+          navigate(id, t, false);
+          return true;
+        }
+        window.addEventListener("hashchange", fromHash);
+        renderCatalog();
+        if (!fromHash() && DATA.videos.length) {
+          const invalidLink = !$("link-status").hidden;
+          const first = [...DATA.videos].sort(
+            (a, b) => b.relevance - a.relevance,
+          )[0];
+          navigate(first.id, 0, false);
+          if (invalidLink) $("link-status").hidden = false;
+        }
+      })();
+    </script>
+  </body>
+</html>

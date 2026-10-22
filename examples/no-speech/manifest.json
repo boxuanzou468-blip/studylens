@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "videos": [
+    {
+      "id": "8def9b053b34c9ea",
+      "path": "silent-example.mp4",
+      "filename": "silent-example.mp4",
+      "duration_sec": 60,
+      "has_audio": false,
+      "fingerprint": {
+        "size": 0,
+        "mtime_ns": 0
+      },
+      "subtitle": null,
+      "subtitle_fingerprint": null
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "url": "https://code.claude.com/docs/en/skills",
+    "status": 200,
+    "final_url": "https://code.claude.com/docs/en/skills",
+    "fragment_present": null,
+    "bytes": 1233129
+  },
+  {
+    "url": "https://code.claude.com/docs/en/skills#where-skills-live",
+    "status": 200,
+    "final_url": "https://code.claude.com/docs/en/skills#where-skills-live",
+    "fragment_present": true,
+    "bytes": 1233129
+  },
+  {
+    "url": "https://hf-mirror.com",
+    "status": 200,
+    "final_url": "https://hf-mirror.com",
+    "fragment_present": null,
+    "bytes": 14062
+  },
+  {
+    "url": "https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills",
+    "status": 200,
+    "final_url": "https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills",
+    "fragment_present": true,
+    "bytes": 417112
+  }
+]

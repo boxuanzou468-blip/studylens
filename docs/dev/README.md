@@ -1,0 +1,14 @@
+# 开发记录
+
+路径已脱敏：`<repo>` 为工具根目录，`<media>` 为测试素材，`<workspace>`、`<user>` 为本机工作区和用户目录。这些历史记录描述当时的结果，不是当前执行指令。
+
+- [BATCH1_CLAUDE_REVIEW.md](BATCH1_CLAUDE_REVIEW.md)
+- [BATCH1_REVIEW.md](BATCH1_REVIEW.md)
+- [BATCH2_CLAUDE_REVIEW.md](BATCH2_CLAUDE_REVIEW.md)
+- [BATCH2_REVIEW.md](BATCH2_REVIEW.md)
+- [BATCH3_CLAUDE_REVIEW.md](BATCH3_CLAUDE_REVIEW.md)
+- [BATCH3_REVIEW.md](BATCH3_REVIEW.md)
+- [BATCH4_CLAUDE_REVIEW.md](BATCH4_CLAUDE_REVIEW.md)
+- [BATCH4_REVIEW.md](BATCH4_REVIEW.md)
+- [SPEC.md](SPEC.md)
+- [BATCH5_REVIEW.md](BATCH5_REVIEW.md)

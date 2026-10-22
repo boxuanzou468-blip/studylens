@@ -1,0 +1,59 @@
+{
+  "learning_path": [
+    {
+      "video_id": "unknown-video",
+      "segment_index": 0,
+      "reason": "先明确要达成的成果。"
+    },
+    {
+      "video_id": "1826e5de3ff6b05b",
+      "segment_index": 99,
+      "reason": "再安排每日执行时间。"
+    },
+    {
+      "video_id": "df3a612a35031034",
+      "segment_index": 0,
+      "reason": "学习主动回忆，检查知识是否掌握。"
+    },
+    {
+      "video_id": "df3a612a35031034",
+      "segment_index": 1,
+      "reason": "最后把练习结果用于调整计划。"
+    }
+  ],
+  "topic_index": {
+    "学习目标": [
+      {
+        "video_id": "1826e5de3ff6b05b",
+        "segment_index": 0
+      }
+    ],
+    "时间安排": [
+      {
+        "video_id": "1826e5de3ff6b05b",
+        "segment_index": 1
+      }
+    ],
+    "主动回忆": [
+      {
+        "video_id": "df3a612a35031034",
+        "segment_index": 8
+      }
+    ],
+    "复盘": [
+      {
+        "video_id": "1826e5de3ff6b05b",
+        "segment_index": 2
+      },
+      {
+        "video_id": "df3a612a35031034",
+        "segment_index": 1
+      }
+    ]
+  },
+  "stats": {
+    "total_sec": 100,
+    "recommended_sec": 120,
+    "saved_sec": 5
+  }
+}

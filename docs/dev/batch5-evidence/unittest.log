@@ -1,0 +1,71 @@
+test_auto_encoding_and_explicit_override (test_batch2.ReviewFixTests.test_auto_encoding_and_explicit_override) ... ok
+test_compact_chunks_over_80_percent_and_no_text_loss (test_batch2.ReviewFixTests.test_compact_chunks_over_80_percent_and_no_text_loss) ... ok
+test_device_and_compute_not_in_parameter_key (test_batch2.ReviewFixTests.test_device_and_compute_not_in_parameter_key) ... ok
+test_download_and_gpu_hints_are_present (test_batch2.ReviewFixTests.test_download_and_gpu_hints_are_present) ... ok
+test_large_duration_overrun_still_rejected (test_batch2.ReviewFixTests.test_large_duration_overrun_still_rejected) ... ok
+test_progress_throttling_and_vad_prompt_forwarding (test_batch2.ReviewFixTests.test_progress_throttling_and_vad_prompt_forwarding) ... ok
+test_single_zero_at_end_and_zero_near_end (test_batch2.ReviewFixTests.test_single_zero_at_end_and_zero_near_end) ... ok
+test_zero_and_backward_times_keep_all_text (test_batch2.ReviewFixTests.test_zero_and_backward_times_keep_all_text) ... ok
+test_all_negative_examples_report_multiple_errors (test_batch2.ValidationTests.test_all_negative_examples_report_multiple_errors) ... ok
+test_all_positive_examples (test_batch2.ValidationTests.test_all_positive_examples) ... ok
+test_cli_processes_all_files_after_bad_json (test_batch2.ValidationTests.test_cli_processes_all_files_after_bad_json) ... ok
+test_exact_start_and_tolerance_edges (test_batch2.ValidationTests.test_exact_start_and_tolerance_edges) ... ok
+test_examples_cover_all_labels (test_batch2.ValidationTests.test_examples_cover_all_labels) ... ok
+test_library_references_and_stats_recomputed (test_batch2.ValidationTests.test_library_references_and_stats_recomputed) ... ok
+test_missing_and_duplicate_analysis_files (test_batch2.ValidationTests.test_missing_and_duplicate_analysis_files) ... ok
+test_null_scalar_and_malformed_segment_roots_fail_cleanly (test_batch2.ValidationTests.test_null_scalar_and_malformed_segment_roots_fail_cleanly) ... ok
+test_overlap_overrun_and_reverse_all_reported (test_batch2.ValidationTests.test_overlap_overrun_and_reverse_all_reported) ... ok
+test_schema_relevance_labels_speed_and_numeric_types (test_batch2.ValidationTests.test_schema_relevance_labels_speed_and_numeric_types) ... ok
+test_speed_required (test_batch2.ValidationTests.test_speed_required) ... ok
+test_builder_help (test_batch3.Batch3Tests.test_builder_help) ... ok
+test_chunk_header_reports_exact_duration (test_batch3.Batch3Tests.test_chunk_header_reports_exact_duration) ... ok
+test_custom_report_location_recomputes_relative_media_paths (test_batch3.Batch3Tests.test_custom_report_location_recomputes_relative_media_paths) ... ok
+test_embedded_json_is_inert_and_round_trips (test_batch3.Batch3Tests.test_embedded_json_is_inert_and_round_trips) ... ok
+test_invalid_input_refuses_write_and_preserves_old_report (test_batch3.Batch3Tests.test_invalid_input_refuses_write_and_preserves_old_report) ... ok
+test_learning_path_rejects_skip_and_duplicates_topic_index_allows_skip (test_batch3.Batch3Tests.test_learning_path_rejects_skip_and_duplicates_topic_index_allows_skip) ... ok
+test_manifest_path_escape_refused (test_batch3.Batch3Tests.test_manifest_path_escape_refused) ... ok
+test_no_speech_example_all_skip_empty_path_passes (test_batch3.Batch3Tests.test_no_speech_example_all_skip_empty_path_passes) ... ok
+test_nonempty_learning_content_cannot_have_empty_path (test_batch3.Batch3Tests.test_nonempty_learning_content_cannot_have_empty_path) ... ok
+test_warning_cli_exits_zero_and_reports_separately (test_batch3.Batch3Tests.test_warning_cli_exits_zero_and_reports_separately) ... ok
+test_warning_rules_and_exceptions (test_batch3.Batch3Tests.test_warning_rules_and_exceptions) ... ok
+test_decimal_speed_statistics (test_batch4.Batch4Tests.test_decimal_speed_statistics) ... ok
+test_fresh_profile_warns_for_analysis_and_library_not_error (test_batch4.Batch4Tests.test_fresh_profile_warns_for_analysis_and_library_not_error) ... ok
+test_freshness_warning_is_nonfatal_in_builder_and_cli (test_batch4.Batch4Tests.test_freshness_warning_is_nonfatal_in_builder_and_cli) ... ok
+test_invalid_or_incomplete_analysis_never_prints_partial_stats (test_batch4.Batch4Tests.test_invalid_or_incomplete_analysis_never_prints_partial_stats) ... ok
+test_no_speech_statistics (test_batch4.Batch4Tests.test_no_speech_statistics) ... ok
+test_older_profile_does_not_warn (test_batch4.Batch4Tests.test_older_profile_does_not_warn) ... ok
+test_stats_cli_only_json_and_not_dependent_on_cwd (test_batch4.Batch4Tests.test_stats_cli_only_json_and_not_dependent_on_cwd) ... ok
+test_stats_match_all_four_labels_and_final_validation (test_batch4.Batch4Tests.test_stats_match_all_four_labels_and_final_validation) ... ok
+test_analysis_and_library_warning_identity (test_batch5.ReleaseTests.test_analysis_and_library_warning_identity) ... ok
+test_builder_warning_dedup_relative_paths (test_batch5.ReleaseTests.test_builder_warning_dedup_relative_paths) ... ok
+test_multi_file_warning_dedup_in_both_orders (test_batch5.ReleaseTests.test_multi_file_warning_dedup_in_both_orders) ... ok
+test_optional_local_whisper (test_batch5.ReleaseTests.test_optional_local_whisper) ... skipped 'requires STUDYLENS_TEST_MODEL local directory and ffmpeg; no download'
+test_same_filename_in_different_media_is_not_deduplicated (test_batch5.ReleaseTests.test_same_filename_in_different_media_is_not_deduplicated) ... ok
+test_short_warning_boundary (test_batch5.ReleaseTests.test_short_warning_boundary) ... ok
+test_ass_fields_comma_and_newline (test_pipeline.SubtitleTests.test_ass_fields_comma_and_newline) ... ok
+test_atomic_json_and_traversal (test_pipeline.SubtitleTests.test_atomic_json_and_traversal) ... ok
+test_auto_gpu_failure_falls_back_to_cpu (test_pipeline.SubtitleTests.test_auto_gpu_failure_falls_back_to_cpu) ... GPU 无法运行，重试 CPU: cublas64_12.dll CUDA library missing
+ok
+test_bad_subtitles_rejected (test_pipeline.SubtitleTests.test_bad_subtitles_rejected) ... ok
+test_bad_times_rejected (test_pipeline.SubtitleTests.test_bad_times_rejected) ... ok
+test_cache_corruption_and_parameter_changes (test_pipeline.SubtitleTests.test_cache_corruption_and_parameter_changes) ... ok
+test_chunks_bound_and_text_preservation (test_pipeline.SubtitleTests.test_chunks_bound_and_text_preservation) ... ok
+test_cli_help (test_pipeline.SubtitleTests.test_cli_help) ... ok
+test_duration_rounding_only (test_pipeline.SubtitleTests.test_duration_rounding_only) ... 警告：修正 1 段异常时间，文字已保留。
+ok
+test_legacy_encoding_explicit (test_pipeline.SubtitleTests.test_legacy_encoding_explicit) ... ok
+test_model_download_error_is_not_misreported_as_gpu_error (test_pipeline.SubtitleTests.test_model_download_error_is_not_misreported_as_gpu_error) ... ok
+test_real_subtitle_pipeline_resume_and_stale_chunk (test_pipeline.SubtitleTests.test_real_subtitle_pipeline_resume_and_stale_chunk) ... ok
+test_scan_stable_ids_subtitle_precedence_and_changed_input (test_pipeline.SubtitleTests.test_scan_stable_ids_subtitle_precedence_and_changed_input) ... ok
+test_segment_bounds_and_finite (test_pipeline.SubtitleTests.test_segment_bounds_and_finite) ... ok
+test_srt_multiline_bom_and_markup (test_pipeline.SubtitleTests.test_srt_multiline_bom_and_markup) ... ok
+test_vtt_notes_settings_and_id (test_pipeline.SubtitleTests.test_vtt_notes_settings_and_id) ... ok
+
+----------------------------------------------------------------------
+Ran 60 tests in 2.935s
+
+OK (skipped=1)
+PASS 已校验 2 份影片分析，报告: <user>\AppData\Local\Temp\StudyLens-第三批-d65nqdoq\reports\view.html
+PASS 已校验 2 份影片分析，报告: <user>\AppData\Local\Temp\StudyLens-第三批-ucgpt3tv\studylens-report.html
+PASS 已校验 2 份影片分析，报告: <user>\AppData\Local\Temp\StudyLens-第四批-ru7aw7q2\studylens-report.html
+PASS 已校验 2 份影片分析，报告: <user>\AppData\Local\Temp\StudyLens-第四批-krkzyrov\studylens-report.html

@@ -1,0 +1,130 @@
+{
+  "batch3": {
+    "checks": 16,
+    "pageErrors": [],
+    "externalRequests": []
+  },
+  "batch4": {
+    "status": "passed",
+    "checks": [
+      {
+        "width": 390,
+        "reducedMotion": "reduce",
+        "action": "segment",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ],
+        "playerTop": -0.296875
+      },
+      {
+        "width": 390,
+        "reducedMotion": "reduce",
+        "action": "learning_path",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ]
+      },
+      {
+        "width": 720,
+        "reducedMotion": "reduce",
+        "action": "segment",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ],
+        "playerTop": -0.296875
+      },
+      {
+        "width": 720,
+        "reducedMotion": "reduce",
+        "action": "learning_path",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ]
+      },
+      {
+        "width": 1050,
+        "reducedMotion": "reduce",
+        "action": "segment",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ],
+        "playerTop": 20
+      },
+      {
+        "width": 1050,
+        "reducedMotion": "reduce",
+        "action": "learning_path",
+        "calls": [
+          {
+            "behavior": "auto",
+            "block": "start"
+          }
+        ]
+      },
+      {
+        "width": 1051,
+        "reducedMotion": "reduce",
+        "action": "desktop_no_forced_scroll",
+        "calls": []
+      },
+      {
+        "width": 390,
+        "reducedMotion": "no-preference",
+        "action": "segment",
+        "calls": [
+          {
+            "behavior": "smooth",
+            "block": "start"
+          }
+        ],
+        "playerTop": -1.296875
+      },
+      {
+        "width": 390,
+        "reducedMotion": "no-preference",
+        "action": "learning_path",
+        "calls": [
+          {
+            "behavior": "smooth",
+            "block": "start"
+          }
+        ]
+      }
+    ],
+    "pageErrors": [],
+    "browserVersion": "153.0.8010.12"
+  },
+  "batch5": {
+    "checks": [
+      "default relevance descending, stable ties",
+      "original manifest order",
+      "filter preserves relevance order",
+      "single custom control bar",
+      "volume and mute roundtrip",
+      "native volume state reflected in controls",
+      "enter and exit fullscreen with custom controls",
+      "fullscreen rejection has visible fallback",
+      "Chinese header",
+      "controls fit mobile and tablet",
+      "offline without JS errors or external requests"
+    ],
+    "pageErrors": [],
+    "externalRequests": [],
+    "status": "passed"
+  }
+}

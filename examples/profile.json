@@ -1,0 +1,10 @@
+{
+  "video_folder": ".",
+  "goals": [
+    "制定可执行的学习计划",
+    "用主动回忆检查掌握程度"
+  ],
+  "level": "beginner",
+  "time_budget_min": 10,
+  "language": "zh-CN"
+}

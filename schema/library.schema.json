@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StudyLens cross-video learning library",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["learning_path", "topic_index", "stats"],
+  "$defs": {
+    "reference": {
+      "type": "object", "additionalProperties": false,
+      "required": ["video_id", "segment_index"],
+      "properties": {
+        "video_id": {"type": "string", "pattern": "\\S"},
+        "segment_index": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "properties": {
+    "learning_path": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["video_id", "segment_index", "reason"],
+        "properties": {
+          "video_id": {"type": "string", "pattern": "\\S"},
+          "segment_index": {"type": "integer", "minimum": 0},
+          "reason": {"type": "string", "pattern": "\\S"}
+        }
+      }
+    },
+    "topic_index": {
+      "type": "object", "minProperties": 1,
+      "propertyNames": {"pattern": "\\S"},
+      "additionalProperties": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/reference"}}
+    },
+    "stats": {
+      "type": "object", "additionalProperties": false,
+      "required": ["total_sec", "recommended_sec", "saved_sec"],
+      "properties": {
+        "total_sec": {"type": "number", "exclusiveMinimum": 0},
+        "recommended_sec": {"type": "number", "minimum": 0},
+        "saved_sec": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

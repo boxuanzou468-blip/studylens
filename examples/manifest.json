@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "created_at": "2026-10-21T00:00:00+00:00",
+  "videos": [
+    {
+      "id": "1826e5de3ff6b05b",
+      "path": "学习计划入门.mp4",
+      "filename": "学习计划入门.mp4",
+      "duration_sec": 240,
+      "has_audio": true,
+      "fingerprint": {
+        "size": 0,
+        "mtime_ns": 0
+      },
+      "subtitle": null,
+      "subtitle_fingerprint": null
+    },
+    {
+      "id": "df3a612a35031034",
+      "path": "复习方法进阶.mp4",
+      "filename": "复习方法进阶.mp4",
+      "duration_sec": 360,
+      "has_audio": true,
+      "fingerprint": {
+        "size": 0,
+        "mtime_ns": 0
+      },
+      "subtitle": null,
+      "subtitle_fingerprint": null
+    }
+  ],
+  "errors": []
+}
