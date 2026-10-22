@@ -77,6 +77,31 @@ function check(name) {
   );
   assert.equal(await page.locator("#seek-bar").count(), 1);
   check("single custom control bar");
+  const voice = videos.find((v) => v.id === fixture.voice_id);
+  const target = voice.segments.length > 2 ? 2 : voice.segments.length - 1;
+  const block = page.locator(
+    `#seek-strip button[data-segment-index="${target}"]`,
+  );
+  assert.equal(
+    await page.locator("#seek-strip button").count(),
+    voice.segments.length,
+  );
+  await block.hover();
+  await page.locator("#strip-tip").waitFor({ state: "visible" });
+  assert(
+    (await page.locator("#strip-tip").textContent()).includes(
+      voice.segments[target].title,
+    ),
+  );
+  await block.click();
+  await page.waitForFunction(
+    (start) =>
+      Math.abs(document.querySelector("#player").currentTime - start) < 0.5,
+    voice.segments[target].start,
+  );
+  assert.equal(await block.evaluate((n) => n.classList.contains("active")), true);
+  await page.locator("#player").evaluate((v) => v.pause());
+  check("segment strip shows title on hover and jumps on click");
   await page.locator("#volume").fill("0.35");
   assert.equal(await page.locator("#player").evaluate((v) => v.volume), 0.35);
   await page.locator("#mute-toggle").click();
@@ -95,7 +120,8 @@ function check(name) {
   await page.waitForFunction(
     () =>
       document.querySelector("#volume").value === "0.6" &&
-      document.querySelector("#mute-toggle").textContent === "取消静音",
+      document.querySelector("#mute-toggle").getAttribute("aria-label") ===
+        "取消静音",
   );
   check("native volume state reflected in controls");
   await page.locator("#fullscreen-toggle").click();

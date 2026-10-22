@@ -64,11 +64,17 @@ let browser;
       .click();
     if (width <= 1050) {
       await page.waitForFunction(() => window.studyLensScrollCalls.length > 0);
+      // 播放器要滚到顶部；页面较短时，滚到底也算到位（播放器已在视口内）
       await page.waitForFunction(() => {
-        const top = document
+        const rect = document
           .getElementById("player-panel")
-          .getBoundingClientRect().top;
-        return top >= -2 && top <= 26;
+          .getBoundingClientRect();
+        const atBottom =
+          scrollY >= document.documentElement.scrollHeight - innerHeight - 2;
+        return (
+          (rect.top >= -2 && rect.top <= 26) ||
+          (atBottom && rect.top >= 0 && rect.top < innerHeight)
+        );
       });
       const calls = await page.evaluate(() => window.studyLensScrollCalls);
       assert.equal(
