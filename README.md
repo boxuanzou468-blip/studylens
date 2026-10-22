@@ -1,8 +1,8 @@
 # StudyLens
 
-[![CI 状态：待首次运行](docs/ci-status.svg)](.github/workflows/ci.yml)
+[![Tests](https://github.com/boxuanzou468-blip/studylens/actions/workflows/ci.yml/badge.svg)](https://github.com/boxuanzou468-blip/studylens/actions/workflows/ci.yml)
 
-CI 配置覆盖 Windows、macOS、Linux；仓库尚未发布，尚无远端运行结果。仓库名称确定后将此待运行徽章替换为 GitHub Actions 实时状态徽章。
+Python 3.12 单元测试及 ffmpeg 字幕流水线已通过 Windows、macOS、Linux 的 GitHub Actions 验证。[查看三平台运行记录](https://github.com/boxuanzou468-blip/studylens/actions/runs/39732402291)。
 
 把一堆本机学习影片，变成按你的目标排序、能直接跳到重点的离线学习导航。
 
@@ -130,7 +130,7 @@ profile 修改时间比 analysis 新时，校验器和报告构建会警告「�
 - schema 只验证结构、时间与引用，不能保证摘要正确或标签适合用户。过长/过短段落及过期分析给出警告；错误会阻止生成报告，警告不会擅自改写内容。
 - 使用不支持 Range 请求的 HTTP 预览服务器时，视频可能无法定位。请直接双击 HTML 文件，在本地浏览器打开，或使用支持 Range 的服务。
 - GPU 需要兼容运行库，auto 可回退 CPU；本机验收未证明 GPU 成功推理，也不自动安装 CUDA/驱动。
-- 已有测试覆盖 Windows 本地文件播放、离线交互和模拟手机宽度；macOS/Linux、实际手机与 Safari/Firefox 未实机验证。剪贴板、自动播放和 localStorage 受浏览器策略约束，有手动播放/复制及不持久化的退路。
+- Python 3.12 单元测试与 ffmpeg 字幕流水线已在 Windows、macOS、Linux CI 通过；本地文件播放、离线交互和模拟手机宽度的浏览器验收在 Windows Chromium 完成。macOS/Linux 浏览器、实际手机与 Safari/Firefox 尚未验证。剪贴板、自动播放和 localStorage 受浏览器策略约束，有手动播放/复制及不持久化的退路。
 - Claude Code 与 Codex 的独立完整流程验收状态见最新交接记录；脚本/浏览器检查通过不代替两边 agent 都能独立执行的证据。
 
 运行开发检查：项目 venv Python 执行 `-m unittest discover -s tests -v`。测试分层、ffmpeg、Playwright/Chromium 和可选本地模型的准备见 [tests/README.md](tests/README.md)。CI 尚未实际运行的平台不会列为已验证。
@@ -174,7 +174,7 @@ Video and transcript files stay local, and the HTML has no CDN dependencies. You
 
 Local videos only; no online URL ingestion, GUI, automatic transcoding, language-suffixed sidecars, or embedded subtitles. ASR can be wrong and does not establish visual content. Missing text produces a whole-video skip record. Some codecs require a system player. File links are local, not hosted sharing links. File fingerprints use size/mtime, and simultaneous writers to one media folder are unsupported.
 
-Warnings flag unusual segmentation or a profile newer than its analysis. Semantic quality still depends on the agent and source material. HTTP preview servers without Range support may prevent seeking; open the HTML directly in a local browser. The three-platform CI workflow is configured but has not run remotely yet. Windows Chromium/file playback and simulated mobile widths have been exercised; other browsers, operating systems and actual phones remain separate validation work. See the latest handoff record for independent Codex/Claude Code end-to-end acceptance status.
+Warnings flag unusual segmentation or a profile newer than its analysis. Semantic quality still depends on the agent and source material. HTTP preview servers without Range support may prevent seeking; open the HTML directly in a local browser. Python 3.12 unit tests and the ffmpeg subtitle pipeline pass on Windows, macOS and Linux in GitHub Actions. Browser/file playback and simulated mobile widths have been exercised on Windows Chromium; macOS/Linux browsers, other browser engines and actual phones remain separate validation work. See the latest handoff record for independent Codex/Claude Code end-to-end acceptance status.
 
 Licensed under [MIT](LICENSE), © 2026 StudyLens contributors. Third-party models, dependencies and source videos retain their own licenses.
 
